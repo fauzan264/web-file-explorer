@@ -1,3 +1,4 @@
+import { expect } from "bun:test";
 import prisma from "../../prisma/client";
 import { Folder } from "../models/types";
 import createResponse from "../utils/responseHelper";
@@ -10,14 +11,6 @@ export async function getFolders() {
                 files: true
             }
         })
-
-        // const mapFolders = folders.map(folder => ({
-        //     ...folder,
-        //     created_at: folder.createdAt,
-        //     updated_at: folder.updatedAt,
-        //     createdAt: undefined, // Hilangkan properti asli
-        //     updatedAt: undefined,
-        // }));
 
         // async function getFoldersWithSubFolders(parentId: number | null = null) {
         //     // Ambil folder dengan parentId tertentu
@@ -44,14 +37,34 @@ export async function getFolders() {
         });
         
         return response
-        // return res.send(response);
-
-        return {
-            success: true,
-            message: "List Data Folders",
-            data: folders
-        }
     } catch (e: unknown) {
         console.error(`Error getting posts: ${e}`)
+    }
+}
+
+export async function createFolder(options: {
+    name: string;
+    folder_id: number
+}) {
+    try {
+        const { name, folder_id } = options;
+
+        const folder = await prisma.folder.create({
+            data: {
+                name: name,
+                folderId: folder_id
+            },
+        })
+
+        const response = createResponse<Folder>({
+            status: 'success',
+            code: 200,
+            message: 'Folder success created',
+            data: folder
+        })
+
+        return response
+    } catch (e: unknown) {
+        console.error(`Error creating folder: ${e}`);
     }
 }

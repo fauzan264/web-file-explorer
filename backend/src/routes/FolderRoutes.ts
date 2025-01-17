@@ -1,11 +1,22 @@
 //import elysia
-import { Elysia } from 'elysia';
+import { Elysia, t } from 'elysia';
 //import controller
-import { getFolders } from '../controller/FolderController';
+import { createFolder, getFolders } from '../controller/FolderController';
 
 const FolderRoutes = new Elysia({ prefix: '/folders' })
 
   //route get all posts
   .get('/', () => getFolders())
-
+  .post('/', ({body}) => createFolder(body as { name: string; folder_id: number }), {
+    body: t.Object({
+      name: t.String({
+        minLength: 3,
+        maxLength: 100,
+      }),
+      folder_id: t.Number({
+        minLength: 1,
+        maxLength: 1000,
+      }),
+    })
+  })
 export default FolderRoutes;
