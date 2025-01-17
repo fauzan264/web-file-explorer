@@ -6,11 +6,13 @@ interface File {
 interface SubFolder {
     id: number;
     name: string;
+    createdAt: string;
 }
 
 interface Folder {
     id: number;
     name: string;
+    createdAt: string;
     subFolder: SubFolder[];
     files: File[];
 }

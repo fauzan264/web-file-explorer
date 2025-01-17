@@ -1,4 +1,3 @@
-import { expect } from "bun:test";
 import prisma from "../../prisma/client";
 import { Folder } from "../models/types";
 import createResponse from "../utils/responseHelper";
