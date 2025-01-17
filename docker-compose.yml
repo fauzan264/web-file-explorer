@@ -1,0 +1,56 @@
+services:
+  # frontend:
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: Dockerfile
+  #   container_name: crowdfunding-frontend-service
+  #   environment:
+  #     - BASE_URL=http://backend:8080
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     - backend
+  #   networks:
+  #     - crowdfundingapp-network
+
+  # backend:
+  #   build:
+  #     context: ./backend
+  #     dockerfile: Dockerfile
+  #   container_name: crowdfunding-backend-service
+  #   environment:
+  #     - DB_HOST=db
+  #     - DB_PORT=3306
+  #     - DB_USER=${DB_USER}
+  #     - DB_PASSWORD=${DB_PASSWORD}
+  #     - DB_NAME=bwastartup
+  #   ports:
+  #     - "8080:8080"
+  #   env_file:
+  #     - .env
+  #   depends_on:
+  #     - db
+  #   networks:
+  #     - crowdfundingapp-network
+
+  db:
+    image: mysql:8.0
+    container_name: file-explorer-db-service
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_DATABASE=file_explorer_db
+    ports:
+      - "${DB_PORT}:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+      # - ${PWD}/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - file-explorer-network
+
+volumes:
+  db-data:
+
+networks:
+  file-explorer-network:
+    driver: bridge
