@@ -1,0 +1,117 @@
+openapi: '3.0.3'
+info:
+  title: Web File Explorer
+  version: '1.0'
+servers:
+  - url: http://localhost:3000/api/v1
+paths:
+  /folders:
+    get:
+      responses:
+        '200':
+          description: Folders fetched successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    $ref: "#/components/schemas/MetaResponse"
+                  data:
+                    $ref: "#/components/schemas/ListFolderResponse"
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                folder_id:
+                  type: number
+      responses:
+        '200':
+          description: Folder success created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    $ref: "#/components/schemas/MetaResponse"
+                  data:
+                    $ref: "#/components/schemas/CreateFolderResponse"
+components:
+  schemas:
+    SubFolderAndFiles:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: number
+          name:
+            type: string
+          folder_id:
+            type: number
+          created_at:
+            type: string
+            format: date-time
+          updated_at:
+            type: string
+            format: date-time
+    MetaResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        code:
+          type: integer
+        message:
+          type: string
+    CreateFolderResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        folder_id:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    ListFolderResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        folder_id:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        sub_folder:
+          $ref: "#/components/schemas/SubFolderAndFiles"
+        files:
+          $ref: "#/components/schemas/SubFolderAndFiles"
+    ErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: string
+            default: "Key: 'CheckEmailInput.Email' Error:Field validation for 'Email' failed on the 'required' tag"
