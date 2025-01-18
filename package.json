@@ -1,0 +1,8 @@
+{
+    "scripts": {
+      "dev:backend": "bun run backend/src/index.ts",
+      "dev:frontend": "cd frontend && bun run dev",
+      "dev": "bun run dev:backend & bun run dev:frontend"
+    }
+  }
+  
