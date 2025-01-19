@@ -51,6 +51,38 @@ export async function createFolder(options: {
     }
 }
 
+export async function getDetailFolder(id: string) {
+    try {
+        async function getFoldersWithSubFolders(folderId: number | null = null) {
+            // Ambil folder dengan parentId tertentu
+            const folders = await prisma.folder.findMany({
+                where: { folderId: folderId }, // folderId adalah parent_id
+                include: { files: true }, // Sertakan files jika perlu
+            });
+        
+            // Loop untuk mendapatkan subfolder
+            for (const folder of folders) {
+                folder.subFolder = await getFoldersWithSubFolders(folder.id); // Rekursif
+            }
+        
+            return folders;
+        }
+
+        const folders = await getFoldersWithSubFolders(parseInt(id));
+        
+        const response = createResponse<Folder>({
+            status: 'success',
+            code: 200,
+            message: 'Folders fetched successfully',
+            data: folders
+        });
+        
+        return response
+    } catch (e: unknown) {
+        console.error(`Error getting posts: ${e}`)
+    }
+}
+
 export async function getSubFolderById(id: string) {
     try {
 

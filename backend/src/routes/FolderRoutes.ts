@@ -1,7 +1,7 @@
 //import elysia
 import { Elysia, t } from 'elysia';
 //import controller
-import { createFolder, getFolders, getSubFolderById } from '../controller/FolderController';
+import { createFolder, getDetailFolder, getFolders, getSubFolderById } from '../controller/FolderController';
 
 const FolderRoutes = new Elysia({ prefix: '/folders' })
 
@@ -19,6 +19,6 @@ const FolderRoutes = new Elysia({ prefix: '/folders' })
       }),
     })
   })
-
+  .get('/:id', ({params: { id }}) => getDetailFolder(id))
   .get('/:id/subfolders', ({params: { id }}) => getSubFolderById(id))
 export default FolderRoutes;
