@@ -54,15 +54,14 @@ export async function createFolder(options: {
 export async function getDetailFolder(id: string) {
     try {
         async function getFoldersWithSubFolders(folderId: number | null = null) {
-            // Ambil folder dengan parentId tertentu
             const folders = await prisma.folder.findMany({
-                where: { folderId: folderId }, // folderId adalah parent_id
-                include: { files: true }, // Sertakan files jika perlu
+                where: { folderId: folderId }, 
+                include: { files: true }, 
             });
         
             // Loop untuk mendapatkan subfolder
             for (const folder of folders) {
-                folder.subFolder = await getFoldersWithSubFolders(folder.id); // Rekursif
+                folder.subFolder = await getFoldersWithSubFolders(folder.id); 
             }
         
             return folders;
