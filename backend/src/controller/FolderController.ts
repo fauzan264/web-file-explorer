@@ -67,3 +67,36 @@ export async function createFolder(options: {
         console.error(`Error creating folder: ${e}`);
     }
 }
+
+export async function getSubFolderById(id: string) {
+    try {
+
+        const folder = await prisma.folder.findMany({
+            where: {
+                folderId: id == "null" ? null : parseInt(id)
+            },
+            include: {
+                files: true
+            }
+        });
+
+        // if folder not found
+        if (!folder) {
+            return createResponse<Folder>({
+                status: 'success',
+                code: 200,
+                message: 'Detail Data Folder Not Found!',
+                data: null
+            })
+        }
+
+        return createResponse<Folder>({
+            status: 'success',
+            code: 200,
+            message: 'Detail Data Post',
+            data: folder
+        })
+    } catch (e: unknown) {
+        console.error(`Error finding folder: ${e}`);
+    }
+}

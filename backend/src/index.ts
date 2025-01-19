@@ -8,7 +8,6 @@ app.group("api/v1", (app) =>
   app
     .use(FolderRoutes)
 )
-
 app.use(cors()).listen(3000);
 
 console.log(
