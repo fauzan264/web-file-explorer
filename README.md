@@ -15,11 +15,11 @@ This project uses **Bun.js** for the backend with **Elysia.js** and **Prisma ORM
 ### Installation Steps
 
 1. **Clone the repository**:
-   ```bash
+    ```bash
         git clone <URL_REPOSITORY>
         cd <PROJECT_FOLDER>
    ```
-   
+
 2. Setup Backend: Navigate to the backend folder and install dependencies:
    ```bash
         cd backend
@@ -33,13 +33,13 @@ This project uses **Bun.js** for the backend with **Elysia.js** and **Prisma ORM
     ```
 
 4. Run MySQL with Docker (optional if you don't want to install MySQL locally): If you prefer not to install MySQL locally, you can use Docker to run MySQL.
-Run the following command at the root of the project:
-   ```bash
+    Run the following command at the root of the project:
+    ```bash
         docker-compose up -d
     ```
 
 - Ensure you configure the .env file in the project root.
-.env file at the root:
+    .env file at the root:
     ```
         DB_HOST=
         DB_PORT=
@@ -48,7 +48,7 @@ Run the following command at the root of the project:
     ```
 
 5. Prisma Setup: Ensure you configure the .env file in the project backend folder.
-.env file inside the backend folder (for Prisma connection):
+    .env file inside the backend folder (for Prisma connection):
     ```
         DATABASE_URL="mysql://root:password@localhost:3306/dbname"
     ```
@@ -58,20 +58,19 @@ Run the following command at the root of the project:
         bun prisma init
     ```
 
-Then, apply the database migrations:
+    Then, apply the database migrations:
     ```bash
         bun prisma migrate dev
     ```
-This will set up the database tables as defined in the Prisma schema.
+    This will set up the database tables as defined in the Prisma schema.
 
 7. Start Both Backend and Frontend
-To start both the backend and frontend simultaneously, run the following command from the root folder:
+    To start both the backend and frontend simultaneously, run the following command from the root folder:
     ```bash
         bun dev
     ```
-This will start both the Bun.js server for the backend and the Vue.js development server for the frontend.
+    This will start both the Bun.js server for the backend and the Vue.js development server for the frontend.
 
-8. Access the Application
-After running the bun dev command, the application will be accessible:
+8. Access the Application After running the bun dev command, the application will be accessible:
 - Backend API will be running at http://localhost:3000
 - Frontend will be available at http://localhost:5173
