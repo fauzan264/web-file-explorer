@@ -10,23 +10,6 @@ export async function getFolders() {
                 files: true
             }
         })
-
-        // async function getFoldersWithSubFolders(parentId: number | null = null) {
-        //     // Ambil folder dengan parentId tertentu
-        //     const folders = await prisma.folder.findMany({
-        //         where: { folderId: parentId }, // folderId adalah parent_id
-        //         include: { files: true }, // Sertakan files jika perlu
-        //     });
-        
-        //     // Loop untuk mendapatkan subfolder
-        //     for (const folder of folders) {
-        //         folder.subFolder = await getFoldersWithSubFolders(folder.id); // Rekursi
-        //     }
-        
-        //     return folders;
-        // }
-
-        // const folders = await getFoldersWithSubFolders(3);
         
         const response = createResponse<Folder>({
             status: 'success',
