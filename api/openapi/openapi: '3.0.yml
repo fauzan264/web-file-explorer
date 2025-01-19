@@ -43,6 +43,20 @@ paths:
                     $ref: "#/components/schemas/MetaResponse"
                   data:
                     $ref: "#/components/schemas/CreateFolderResponse"
+  /folders/:id/subfolders:
+    get:
+      responses:
+        '200':
+          description: Folders fetched successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    $ref: "#/components/schemas/MetaResponse"
+                  data:
+                    $ref: "#/components/schemas/ListFolderResponse"
 components:
   schemas:
     SubFolderAndFiles:
